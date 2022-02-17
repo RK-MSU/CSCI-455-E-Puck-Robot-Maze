@@ -31,6 +31,7 @@ class RobotState(Enum):
     FollowWall = 'Follow Wall'
     TurnCorner = 'Turn Corner'
     CorrectTurn = 'CorrectTurn'
+    GameOver = 'Game Over'
 
 # --------------------------------------------------------------------
 
@@ -187,6 +188,11 @@ class EPuck:
         back_right = self.ps[3].getValue()
         back_left = self.ps[4].getValue()
 
+        # Game Over?
+        touch = self.touchSensor.getValue()
+        if not math.isnan(touch) and touch > 0 and front_left < 80 and front_right < 80:
+            self.state = RobotState.GameOver
+            return
 
         # print(self.state.name)
         # self.printSensorValues()
@@ -261,6 +267,8 @@ print("Starting")
 robot = EPuck(Robot())
 while robot.step():
     robot.travel()
+    if robot.state == RobotState.GameOver:
+        break
 print("GAME OVER")
 
 # END
