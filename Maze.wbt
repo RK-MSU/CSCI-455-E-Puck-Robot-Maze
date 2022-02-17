@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.5777168253302285 -0.5593579486935654 -0.5944425581699957 4.100148353698689
-  position 0.18396012842234533 0.11540162337943782 4.319263247817012
+  orientation -0.5419156808231594 0.5695464239118266 0.6180163961313819 2.0807061930453483
+  position 0.024671801925176966 -0.3979913572064451 4.254129184797034
 }
 TexturedBackground {
 }
@@ -430,6 +430,26 @@ Robot {
   translation -0.06 -0.6 0
   children [
     TouchSensor {
+      translation 0.0352 0 0.007
+      children [
+        Solid {
+          children [
+            Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.0002 0.01 0.01
+              }
+            }
+          ]
+          boundingObject Box {
+            size 0.0002 0.01 0.01
+          }
+        }
+      ]
+      boundingObject Box {
+        size 0.0002 0.01 0.01
+      }
     }
     Compass {
     }
