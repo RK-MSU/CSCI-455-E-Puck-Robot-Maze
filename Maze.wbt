@@ -427,5 +427,6 @@ Solid {
   }
 }
 E-puck {
+  translation -0.06 -0.6 0
   controller "<extern>"
 }
