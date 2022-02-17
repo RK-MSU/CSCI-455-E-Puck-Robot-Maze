@@ -429,6 +429,8 @@ Solid {
 Robot {
   translation -0.06 -0.6 0
   children [
+    TouchSensor {
+    }
     Compass {
     }
     HingeJoint {
