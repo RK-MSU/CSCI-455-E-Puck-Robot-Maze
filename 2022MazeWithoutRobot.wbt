@@ -19,7 +19,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -39,7 +39,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -60,7 +60,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -81,7 +81,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -102,7 +102,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -123,7 +123,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -144,7 +144,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -165,7 +165,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -186,7 +186,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -207,7 +207,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -228,7 +228,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -249,7 +249,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -270,7 +270,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -291,7 +291,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -312,7 +312,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -333,7 +333,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -354,7 +354,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -375,7 +375,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
@@ -396,7 +396,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "water_flow.jpg"
+            "https://raw.githubusercontent.com/RK-MSU/CSCI-455-E-Puck-Robot-Maze/master/images/water_flow.jpg"
           ]
         }
       }
