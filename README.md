@@ -16,26 +16,26 @@
 
 #### Touch Sensor
 
-- Translation
-  - `x=0.0353`
+- Translation:  0 0.011
+  - `x=0.0363`
   - `y=0`
-  - `z=0.007`
+  - `z=0.011`
 - children
   - Solid
     - children
       - Shape `Box`
         - geometry
-          - `x=0.0002` 
-          - `y=0.01`
-          - `z=0.01`
+          - `x=0.0025`
+          - `y=0.02`
+          - `z=0.02`
     - boundingObject `Box`
-        - `x=0.0002`
-        - `y=0.01`
-        - `z=0.01`
+        - `x=0.0025`
+        - `y=0.02`
+        - `z=0.02`
 - boundingObject `Box`
-  - `x=0.0002`
-  - `y=0.01`
-  - `z=0.01`
+  - `x=0.0025`
+  - `y=0.02`
+  - `z=0.02`
 
 ## Instructions
 

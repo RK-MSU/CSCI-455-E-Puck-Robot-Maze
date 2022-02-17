@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.5419156808231594 0.5695464239118266 0.6180163961313819 2.0807061930453483
-  position 0.024671801925176966 -0.3979913572064451 4.254129184797034
+  orientation 0.4583560163544108 -0.4888706779977704 -0.7422366350872983 4.374273604387049
+  position 0.06123072797266188 -1.6825469138559142 3.76286369725169
 }
 TexturedBackground {
 }
@@ -430,7 +430,7 @@ Robot {
   translation -0.06 -0.6 0
   children [
     TouchSensor {
-      translation 0.0352 0 0.007
+      translation 0.0363 0 0.011
       children [
         Solid {
           children [
@@ -438,17 +438,17 @@ Robot {
               appearance PBRAppearance {
               }
               geometry Box {
-                size 0.0002 0.01 0.01
+                size 0.0025 0.02 0.02
               }
             }
           ]
           boundingObject Box {
-            size 0.0002 0.01 0.01
+            size 0.0025 0.02 0.02
           }
         }
       ]
       boundingObject Box {
-        size 0.0002 0.01 0.01
+        size 0.0025 0.02 0.02
       }
     }
     Compass {
@@ -471,6 +471,7 @@ Robot {
       ]
       endPoint DEF EPUCK_LEFT_WHEEL Solid {
         translation 0 0.026 0.02
+        rotation 0 1 0 0
         children [
           DEF EPUCK_WHEEL Transform {
             rotation 1 0 0 -1.570796
@@ -622,6 +623,7 @@ Robot {
       ]
       endPoint DEF EPUCK_RIGHT_WHEEL Solid {
         translation 0 -0.026 0.02
+        rotation 0 1 0 0
         children [
           Transform {
             rotation 1 0 0 3.14159
