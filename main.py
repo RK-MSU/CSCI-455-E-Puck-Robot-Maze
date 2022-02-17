@@ -28,7 +28,7 @@ class Direction(Enum):
 class RobotState(Enum):
     FindWall = 'Find Wall'
     MountWall = 'Mount Wall'
-    FollowWall = 'Follow Wall - Right-Hand Rule'
+    FollowWall = 'Follow Wall'
     TurnCorner = 'Turn Corner'
     CorrectTurn = 'CorrectTurn'
 
@@ -46,6 +46,8 @@ class EPuck:
     rightMotorSensor = None
     compass = None
     touchSensor = None
+
+    _state = RobotState.FindWall
 
     # constructor
     def __init__(self, robot):
@@ -138,13 +140,122 @@ class EPuck:
         speed = MAX_SPEED * (speed / 100)
         self.rightMotor.setVelocity(speed)
 
+    def printSensorValues(self):
+        
+        front_left = self.ps[7].getValue()
+        front_right = self.ps[0].getValue()
+        corner_right = self.ps[1].getValue()
+        corner_left = self.ps[6].getValue()
+        side_right = self.ps[2].getValue()
+        side_left = self.ps[5].getValue()
+        back_right = self.ps[3].getValue()
+        back_left = self.ps[4].getValue()
+
+        TBL_END = "-------------------------------------------------------------------------------"
+        TBL_SPACER = "|{!s:-^8}|{!s:-^8}|{!s:-^10}|{!s:-^9}|{!s:-^9}|{!s:-^10}|{!s:-^8}|{!s:-^8}|"
+        TBL_HEADER = "|{!s:^8}|{!s:^8}|{!s:^10}|{!s:^9}|{!s:^9}|{!s:^10}|{!s:^8}|{!s:^8}|"
+        TBL_ROW = "|{:^8.1f}|{:^8.1f}|{:^10.1f}|{:^9.1f}|{:^9.1f}|{:^10.1f}|{:^8.1f}|{:^8.1f}|"
+        TABLE_STR = TBL_END + "\n" +TBL_HEADER + "\n" + TBL_SPACER + "\n" + TBL_ROW + "\n" + TBL_END + "\n"
+        
+        STR = TABLE_STR.format(
+            "L-Back", "L-Side", "L-Corner", "L-Front", "R-Front", "R-Corner", "R-Side", "R-Back",
+            '', '', '', '', '', '', '', '',
+            back_left, side_left, corner_left, front_left, front_right, corner_right, side_right, back_right)
+        
+        print(STR)
+
+    @property
+    def state(self):
+        return self._state
+
+    @state.setter
+    def state(self, state):
+        print("Switching RobotState:\n---------------------\n To: '{!s}' - From: '{!s}'\n".format(state.value, self.state.value))
+        self._state = state
+
+
     # travel()
     # ----------------------------------------------------------------
     # TODO: add description
     def travel(self):
-        pass
+        front_left = self.ps[7].getValue()
+        front_right = self.ps[0].getValue()
+        corner_right = self.ps[1].getValue()
+        corner_left = self.ps[6].getValue()
+        side_right = self.ps[2].getValue()
+        side_left = self.ps[5].getValue()
+        back_right = self.ps[3].getValue()
+        back_left = self.ps[4].getValue()
 
+
+        # print(self.state.name)
+        # self.printSensorValues()
+
+        # ------------------------------------------------------------
+        # Find Wall
+        # ------------------------------------------------------------
+        if self.state == RobotState.FindWall:
+            self.setSpeed(50)
+            if front_left > 200 and front_right > 200:
+                self.setSpeed(0)
+                self.state = RobotState.MountWall
+            elif front_left > 150 and front_right > 150:
+                self.setSpeed(5)
+            elif front_left > 80 and front_right > 80:
+                self.setSpeed(20)
+        # ------------------------------------------------------------
+        # Mount Wall
+        # ------------------------------------------------------------
+        elif self.state == RobotState.MountWall:
+            self.setLeftWheelSpeed(-35)
+            self.setRightWheelSpeed(35)
+            if front_left > 80:
+                return
+            if corner_right < 120 and side_right > 100:
+                self.setSpeed(0)
+                self.state = RobotState.FollowWall
+        # ------------------------------------------------------------
+        # Follow Wall
+        # ------------------------------------------------------------
+        elif self.state == RobotState.FollowWall:
+            self.setSpeed(100)
+            # Facing Wall
+            if front_left > 100 and front_right > 100:
+                self.setSpeed(0)
+                self.state = RobotState.MountWall
+            # Turn Corner
+            elif side_right < 80 and corner_right < 80:
+                self.setSpeed(50) # TODO: do we need this?
+                self.state = RobotState.TurnCorner
+            # Adjust Left (more severly)
+            elif side_right > 200 and corner_right > 150:
+                self.setLeftWheelSpeed(-10)
+                self.setRightWheelSpeed(50)
+            # Adjust Left (moderate)
+            elif side_right > 200 and corner_right > 100:
+                self.setLeftWheelSpeed(80)
+                self.setRightWheelSpeed(100)
+            # Adjust Right
+            elif side_right < 150 and corner_right < 80:
+                self.setLeftWheelSpeed(100)
+                self.setRightWheelSpeed(80)
+        # ------------------------------------------------------------
+        # Turn Corner
+        # ------------------------------------------------------------
+        elif self.state == RobotState.TurnCorner:
+            self.setLeftWheelSpeed(50)
+            self.setRightWheelSpeed(8)
+            # Facing Wall
+            if front_left > 100 and front_right > 100:
+                self.setSpeed(0)
+                self.state = RobotState.MountWall
+            elif corner_right > 80:
+                self.setSpeed(5) # TODO: do we need this?
+                self.state = RobotState.FollowWall
 # END EPuck Class
+
+# trans:
+# rotation:
 
 print("Starting")
 robot = EPuck(Robot())
