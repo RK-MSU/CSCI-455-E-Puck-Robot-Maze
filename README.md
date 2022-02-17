@@ -10,6 +10,33 @@
   - [How We will Grade](#how-we-will-grade)
   - [Customization of the robot or playing field](#customization-of-the-robot-or-playing-field)
 
+## E-Puck Robot
+
+### Specs
+
+#### Touch Sensor
+
+- Translation
+  - `x=0.0353`
+  - `y=0`
+  - `z=0.007`
+- children
+  - Solid
+    - children
+      - Shape `Box`
+        - geometry
+          - `x=0.0002` 
+          - `y=0.01`
+          - `z=0.01`
+    - boundingObject `Box`
+        - `x=0.0002`
+        - `y=0.01`
+        - `z=0.01`
+- boundingObject `Box`
+  - `x=0.0002`
+  - `y=0.01`
+  - `z=0.01`
+
 ## Instructions
 
 ### Maze Escape
