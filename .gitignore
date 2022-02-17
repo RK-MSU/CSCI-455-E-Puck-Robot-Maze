@@ -1,5 +1,11 @@
 # Pesky macOS files
 .DS_Store
 
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
 # Webots Project Files
 *.wbproj
