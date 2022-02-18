@@ -234,8 +234,12 @@ class EPuck:
         # Mount Wall
         # ------------------------------------------------------------
         elif self.state == RobotState.MountWall:
-            self.setLeftWheelSpeed(-35)
-            self.setRightWheelSpeed(35)
+            if self.hand_rule == HandRule.Right:
+                self.setLeftWheelSpeed(-35)
+                self.setRightWheelSpeed(35)
+            else:
+                self.setLeftWheelSpeed(35)
+                self.setRightWheelSpeed(-35)
             if opposite_front > 80:
                 return
             if hand_corner < 120 and hand_side > 100:
@@ -256,22 +260,38 @@ class EPuck:
                 self.state = RobotState.TurnCorner
             # Adjust Left (more severly)
             elif hand_side > 200 and hand_corner > 150:
-                self.setLeftWheelSpeed(-10)
-                self.setRightWheelSpeed(50)
+                if self.hand_rule == HandRule.Right:
+                    self.setLeftWheelSpeed(-10)
+                    self.setRightWheelSpeed(50)
+                else:
+                    self.setLeftWheelSpeed(50)
+                    self.setRightWheelSpeed(-10)
             # Adjust Left (moderate)
             elif hand_side > 200 and hand_corner > 100:
-                self.setLeftWheelSpeed(80)
-                self.setRightWheelSpeed(100)
+                if self.hand_rule == HandRule.Right:
+                    self.setLeftWheelSpeed(80)
+                    self.setRightWheelSpeed(100)
+                else:
+                    self.setLeftWheelSpeed(100)
+                    self.setRightWheelSpeed(80)
             # Adjust Right
             elif hand_side < 150 and hand_corner < 80:
-                self.setLeftWheelSpeed(100)
-                self.setRightWheelSpeed(80)
+                if self.hand_rule == HandRule.Right:
+                    self.setLeftWheelSpeed(100)
+                    self.setRightWheelSpeed(80)
+                else:
+                    self.setLeftWheelSpeed(80)
+                    self.setRightWheelSpeed(100)
         # ------------------------------------------------------------
         # Turn Corner
         # ------------------------------------------------------------
         elif self.state == RobotState.TurnCorner:
-            self.setLeftWheelSpeed(50)
-            self.setRightWheelSpeed(8)
+            if self.hand_rule == HandRule.Right:
+                self.setLeftWheelSpeed(50)
+                self.setRightWheelSpeed(8)
+            else:
+                self.setLeftWheelSpeed(8)
+                self.setRightWheelSpeed(50)
             # Facing Wall
             if opposite_front > 100 and hand_front > 100:
                 self.setSpeed(0)
