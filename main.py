@@ -211,7 +211,7 @@ class EPuck:
 
         # Game Over?
         touch = self.touchSensor.getValue()
-        if not math.isnan(touch) and touch > 0 and front_left < 80 and front_right < 80:
+        if not math.isnan(touch) and touch > 0 and opposite_front < 80 and hand_front < 80:
             self.state = RobotState.GameOver
             return
 
@@ -223,12 +223,12 @@ class EPuck:
         # ------------------------------------------------------------
         if self.state == RobotState.FindWall:
             self.setSpeed(50)
-            if front_left > 200 and front_right > 200:
+            if opposite_front > 200 and hand_front > 200:
                 self.setSpeed(0)
                 self.state = RobotState.MountWall
-            elif front_left > 150 and front_right > 150:
+            elif opposite_front > 150 and hand_front > 150:
                 self.setSpeed(5)
-            elif front_left > 80 and front_right > 80:
+            elif opposite_front > 80 and hand_front > 80:
                 self.setSpeed(20)
         # ------------------------------------------------------------
         # Mount Wall
@@ -236,9 +236,9 @@ class EPuck:
         elif self.state == RobotState.MountWall:
             self.setLeftWheelSpeed(-35)
             self.setRightWheelSpeed(35)
-            if front_left > 80:
+            if opposite_front > 80:
                 return
-            if corner_right < 120 and side_right > 100:
+            if hand_corner < 120 and hand_side > 100:
                 self.setSpeed(0)
                 self.state = RobotState.FollowWall
         # ------------------------------------------------------------
@@ -247,23 +247,23 @@ class EPuck:
         elif self.state == RobotState.FollowWall:
             self.setSpeed(100)
             # Facing Wall
-            if front_left > 100 and front_right > 100:
+            if opposite_front > 100 and hand_front > 100:
                 self.setSpeed(0)
                 self.state = RobotState.MountWall
             # Turn Corner
-            elif side_right < 80 and corner_right < 80:
+            elif hand_side < 80 and hand_corner < 80:
                 self.setSpeed(50) # TODO: do we need this?
                 self.state = RobotState.TurnCorner
             # Adjust Left (more severly)
-            elif side_right > 200 and corner_right > 150:
+            elif hand_side > 200 and hand_corner > 150:
                 self.setLeftWheelSpeed(-10)
                 self.setRightWheelSpeed(50)
             # Adjust Left (moderate)
-            elif side_right > 200 and corner_right > 100:
+            elif hand_side > 200 and hand_corner > 100:
                 self.setLeftWheelSpeed(80)
                 self.setRightWheelSpeed(100)
             # Adjust Right
-            elif side_right < 150 and corner_right < 80:
+            elif hand_side < 150 and hand_corner < 80:
                 self.setLeftWheelSpeed(100)
                 self.setRightWheelSpeed(80)
         # ------------------------------------------------------------
@@ -273,10 +273,10 @@ class EPuck:
             self.setLeftWheelSpeed(50)
             self.setRightWheelSpeed(8)
             # Facing Wall
-            if front_left > 100 and front_right > 100:
+            if opposite_front > 100 and hand_front > 100:
                 self.setSpeed(0)
                 self.state = RobotState.MountWall
-            elif corner_right > 80:
+            elif hand_corner > 80:
                 self.setSpeed(5) # TODO: do we need this?
                 self.state = RobotState.FollowWall
 # END EPuck Class
