@@ -411,7 +411,7 @@ Solid {
   }
 }
 Solid {
-  translation -0.66 -0.66 0
+  translation -0.66 0.4 0
   children [
     Shape {
       geometry Cylinder {
