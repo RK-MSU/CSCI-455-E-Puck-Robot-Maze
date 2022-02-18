@@ -430,7 +430,7 @@ Robot {
   translation -0.06 -0.6 0
   children [
     TouchSensor {
-      translation 0.0363 0 0.0145
+      translation 0.0363 0 0.0142
       children [
         Solid {
           children [
@@ -438,17 +438,17 @@ Robot {
               appearance PBRAppearance {
               }
               geometry Box {
-                size 0.0025 0.02 0.02
+                size 0.0025 0.02 0.01
               }
             }
           ]
           boundingObject Box {
-            size 0.0025 0.02 0.02
+            size 0.0025 0.02 0.01
           }
         }
       ]
       boundingObject Box {
-        size 0.0025 0.02 0.02
+        size 0.0025 0.02 0.01
       }
     }
     Compass {
