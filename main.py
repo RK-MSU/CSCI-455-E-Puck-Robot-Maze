@@ -42,27 +42,89 @@ class HandRule(Enum):
 
 # --------------------------------------------------------------------
 
+class RunInfo:
+    count = None
+    state = None
+    bearing = None
+    direction = None
+    left_wheel = None
+    right_wheel = None
+
+    def __init__(self, count, robot):
+        self.count = count
+        self.state = robot.state
+        self.bearing = robot.bearing
+        self.direction = robot.direction
+        self.left_wheel = robot.leftMotorSensor.getValue()
+        self.right_wheel = robot.rightMotorSensor.getValue()
+
+    def jsonData(self):
+        return {
+            "count": self.count,
+            "state": self.state.name,
+            "bearing": self.bearing,
+            "direction": self.direction.name,
+            "left_wheel": self.left_wheel,
+            "right_wheel": self.right_wheel
+        }
+
+class MazeAttempt:
+    # robot = None
+    num = None
+    rule = HandRule.Right
+    info = {}
+    info_count = 1
+    def __init__(self, num):
+        # self.robot = robot
+        self.num = num
+
+    def infoJsonData(self):
+        info = {}
+        for i in self.info:
+            info[i] = self.info[i].jsonData()
+        return info
+    
+    def jsonData(self):
+        return {
+            "num": self.num,
+            "rule": self.rule.name,
+            "info": self.infoJsonData()
+        }
+
+    def addInfo(self, robot):
+        i = RunInfo(self.info_count, robot)
+        self.info_count += 1
+        self.info[str(i.count)] = i
+
+    @staticmethod
+    def Make(data):
+        attempt = MazeAttempt(data['num'])
+        if data['rule'] == 'Right':
+            attempt.rule = HandRule.Right
+        else:
+            attempt.rule = HandRule.Left
+        return attempt
+
 class GameData:
 
-    e_puck = None
-    data = []
-    attempt = 1
+    robot = None
+    data = {}
+    current_attempt = None
 
-    def __init__(self, e_puck):
-        self.e_puck = e_puck
-        # load game data on file if exists
+    def __init__(self, robot):
+        self.robot = robot
+        # load game data on file (if exists)
         self.readData()
-        if len(self.data) > 0:
-            # read in previose attempt
-            last_attempt = self.data[len(self.data) -1]
-            if last_attempt['hand_rule'] == 'Right':
-                # set e_puck rule to left
-                self.e_puck.hand_rule = HandRule.Left
+        self.current_attempt = MazeAttempt(int(len(self.data) + 1))
+        last_attempt = self.getLastAttempt()
+        if last_attempt is not None:
+            if last_attempt.rule == HandRule.Right:
+                self.current_attempt.rule = HandRule.Left
             else:
-                # set e_puck rule to right
-                self.e_puck.hand_rule = HandRule.Right
-            # update attempt num
-            self.attempt = int(last_attempt['attempt']) + 1
+                self.current_attempt.rule = HandRule.Right
+        # if attempt_rule is None:
+        #     attempt_rule = HandRule.Right
+        # self.current_attempt = MazeAttempt(self.robot, attempt_num, attempt_rule)
 
     def readData(self):
         if os.path.isfile(DATA_FILENAME):
@@ -73,17 +135,41 @@ class GameData:
                     print("Unable to load JSON file:", DATA_FILENAME)
 
     def writeData(self):
-        run = {
-            "attempt": self.attempt,
-            "hand_rule": self.e_puck.hand_rule.name
-        }
+        # run = self.current_attempt.jsonData()
         output_data = self.data
-        output_data.append(run)
+        output_data[str(self.current_attempt.num)] = self.current_attempt.jsonData()
         output_data = json.dumps(output_data, indent=4)
         f = open(DATA_FILENAME, 'wt')
         f.write(output_data)
         f.close()
 
+    def parseFileData(self):
+        if len(self.data) < 1:
+            return
+        # set current attempt count
+        self.attempt = len(self.data) + 1
+        # read in previous attempt
+        last_attempt = self.data[str(len(self.data))]
+        if last_attempt['rule'] == 'Right':
+            # set e_puck rule to left
+            self.robot.hand_rule = HandRule.Left
+        else:
+            # set e_puck rule to right
+            self.robot.hand_rule = HandRule.Right
+
+    def getLastAttempt(self):
+        if len(self.data) < 1:
+            return None
+        return self.parseAttemptNum(self.current_attempt.num - 1)
+
+    def parseAttemptNum(self, num):
+        num = str(num)
+        if num not in self.data:
+            return None
+        return MazeAttempt.Make(self.data[num])
+
+    def recordInfo(self):
+        self.current_attempt.addInfo(self.robot)
 
 # EPuck (Robot) Class
 class EPuck:
@@ -99,7 +185,6 @@ class EPuck:
     touchSensor = None
 
     _state = RobotState.FindWall
-    hand_rule = HandRule.Right
     game_data = None
 
     # constructor
@@ -131,7 +216,6 @@ class EPuck:
         self.touchSensor.enable(TIME_STEP)
         # load game data
         self.game_data = GameData(self)
-        self.game_data.writeData()
 
     # step()
     # ----------------------------------------------------------------
@@ -224,11 +308,19 @@ class EPuck:
     def state(self):
         return self._state
 
+    @property
+    def hand_rule(self):
+        return self.game_data.current_attempt.rule
+
     @state.setter
     def state(self, state):
-        print("Switching RobotState:\n---------------------\n To: '{!s}' - From: '{!s}'\n".format(state.value, self.state.value))
+        # print("Switching RobotState:\n---------------------\n To: '{!s}' - From: '{!s}'\n".format(state.value, self.state.value))
         self._state = state
 
+    def run(self):
+        self.travel()
+        self.game_data.recordInfo()
+        self.game_data.writeData()
 
     # travel()
     # ----------------------------------------------------------------
@@ -357,7 +449,7 @@ class EPuck:
 print("Starting")
 robot = EPuck(Robot())
 while robot.step():
-    robot.travel()
+    robot.run()
     if robot.state == RobotState.GameOver:
         break
 print("GAME OVER")
