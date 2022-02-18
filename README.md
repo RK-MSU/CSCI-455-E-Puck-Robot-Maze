@@ -69,7 +69,7 @@ _**ONE SOURCE CODE FILE**_ should be able to find all the locations below under 
 2. (0:12:40 seconds) **20 points** your robot can find and detect the trophy at `x=-0.06`, `y=0`, when detected your code should exit and the Webots clock should stop. 
 3. (0:27:00 seconds ) **10 points** your robot can find and detect the trophy at `x=0.54`, `y=-0.14`.
 4. (0:56:30 ) **10 points** your robot can find and detect the trophy at `x=0.66`, `z=-0.66`. _(bottom right corner)_
-5. (0:26:30 ) **10 points** your robot can find and detect the trophy at the bottom left corner `x=-.66`, `y=-.66`. You have to use the exact same code as in the three levels above, you would have to find the positions above in run one, and this position in run two or possibly three. 
+5. (0:26:30 ) **10 points** your robot can find and detect the trophy at the bottom left corner `x=-0.66`, `y=-0.66`. You have to use the exact same code as in the three levels above, you would have to find the positions above in run one, and this position in run two or possibly three. 
 6. (0:14:00 ) **10 points** your robot can find and detect the trophy at `x=-0.66`, `y=0.4` and not take the path that leads you to where the trophy in #5 above was located. So you try path where #5 was located on run one or two, and then on the next run, you learn that is a dead-end.  
 7. (0:39:00 ) **10 points** the default trophy location `x=-0.48`, `y=0.66`
 8. (0:35:46 ) **10 points** `x=-0.48`, `z=0.66` default trophy location but your path is optimal
