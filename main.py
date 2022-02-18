@@ -33,6 +33,10 @@ class RobotState(Enum):
     CorrectTurn = 'CorrectTurn'
     GameOver = 'Game Over'
 
+class HandRule(Enum):
+    Left = "Left Hand Rule"
+    Right = "Right Hand Rule"
+
 # --------------------------------------------------------------------
 
 # EPuck (Robot) Class
@@ -49,6 +53,7 @@ class EPuck:
     touchSensor = None
 
     _state = RobotState.FindWall
+    hand_rule = HandRule.Right
 
     # constructor
     def __init__(self, robot):
@@ -187,6 +192,22 @@ class EPuck:
         side_left = self.ps[5].getValue()
         back_right = self.ps[3].getValue()
         back_left = self.ps[4].getValue()
+
+        hand_front = None
+        opposite_front = None
+        hand_corner = None
+        hand_side = None
+
+        if self.hand_rule == HandRule.Right:
+            hand_front = front_right
+            opposite_front = front_left
+            hand_corner = corner_right
+            hand_side = side_right
+        elif self.hand_rule == HandRule.Left:
+            hand_front = front_left
+            opposite_front = front_right
+            hand_corner = corner_left
+            hand_side = side_left
 
         # Game Over?
         touch = self.touchSensor.getValue()
