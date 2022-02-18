@@ -9,9 +9,12 @@ Spring 2022
 from controller import Robot
 from enum import Enum
 import math
+import os
+import json
 
 TIME_STEP = 64
 MAX_SPEED = 6.28
+DATA_FILENAME = os.getcwd() + '/data.json'
 
 # --------------------------------------------------------------------
 
@@ -39,6 +42,49 @@ class HandRule(Enum):
 
 # --------------------------------------------------------------------
 
+class GameData:
+
+    e_puck = None
+    data = []
+    attempt = 1
+
+    def __init__(self, e_puck):
+        self.e_puck = e_puck
+        # load game data on file if exists
+        self.readData()
+        if len(self.data) > 0:
+            # read in previose attempt
+            last_attempt = self.data[len(self.data) -1]
+            if last_attempt['hand_rule'] == 'Right':
+                # set e_puck rule to left
+                self.e_puck.hand_rule = HandRule.Left
+            else:
+                # set e_puck rule to right
+                self.e_puck.hand_rule = HandRule.Right
+            # update attempt num
+            self.attempt = int(last_attempt['attempt']) + 1
+
+    def readData(self):
+        if os.path.isfile(DATA_FILENAME):
+            with open(DATA_FILENAME, 'rt') as json_file:
+                try:
+                    self.data = json.load(json_file)
+                except:
+                    print("Unable to load JSON file:", DATA_FILENAME)
+
+    def writeData(self):
+        run = {
+            "attempt": self.attempt,
+            "hand_rule": self.e_puck.hand_rule.name
+        }
+        output_data = self.data
+        output_data.append(run)
+        output_data = json.dumps(output_data, indent=4)
+        f = open(DATA_FILENAME, 'wt')
+        f.write(output_data)
+        f.close()
+
+
 # EPuck (Robot) Class
 class EPuck:
 
@@ -54,6 +100,7 @@ class EPuck:
 
     _state = RobotState.FindWall
     hand_rule = HandRule.Right
+    game_data = None
 
     # constructor
     def __init__(self, robot):
@@ -82,6 +129,9 @@ class EPuck:
         # touch sensor
         self.touchSensor = self.robot.getDevice('touch sensor')
         self.touchSensor.enable(TIME_STEP)
+        # load game data
+        self.game_data = GameData(self)
+        self.game_data.writeData()
 
     # step()
     # ----------------------------------------------------------------
