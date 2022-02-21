@@ -1,6 +1,7 @@
 # Pesky macOS files
 .DS_Store
 data.json
+*.pyc
 
 # VS Code
 .vscode/
