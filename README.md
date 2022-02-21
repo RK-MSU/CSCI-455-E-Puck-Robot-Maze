@@ -16,14 +16,14 @@
 
 #### Touch Sensor
 
-- Translation:  0 0.011
+- Translation:
   - `x=0.0363`
   - `y=0`
-  - `z=0.011`
+  - `z=0.0142`
 - boundingObject `Box`
   - `x=0.0025`
   - `y=0.02`
-  - `z=0.02`
+  - `z=0.01`
 
 ## Instructions
 
